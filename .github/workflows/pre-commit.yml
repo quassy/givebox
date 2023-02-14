@@ -1,0 +1,43 @@
+name: pre-commit
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - run: export MYPYPATH=`pwd`:$MYPYPATH
+    - uses: pre-commit/action@v3.0.0
+      name: Formatting Check
+      id: format
+      continue-on-error: true
+      with:
+        extra_args: --hook-stage commit --from-ref HEAD~ --to-ref HEAD
+    - uses: pre-commit/action@v3.0.0
+      name: Linting Check (may fail)
+      id: lint
+      continue-on-error: true
+      with:
+        extra_args: --hook-stage manual --from-ref HEAD~ --to-ref HEAD
+    - name: Linting Outcome
+      if: steps.lint.outcome != 'success'
+      run: >
+        echo "::warning::Linting errors, fix if you want! 
+        Passing this step is optional, see section 'Linting Check' in GitHub Action run for possible linting issues."
+        && exit 0
+    - name: Formatting Outcome
+      if: steps.format.outcome != 'success'
+      run: >
+        echo "::error::Code not well formatted, please fix! 
+        Passing this step is required, see section 'Formatting Check' in GitHub Action run to see formatting errors."
+        && exit 1

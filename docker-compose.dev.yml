@@ -36,7 +36,7 @@ services:
       - DEV=1
 
   postgres:
-    image: postgres:14.6
+    image: postgres:15.2
     ports:
       - "5432:5432"
     env_file:
