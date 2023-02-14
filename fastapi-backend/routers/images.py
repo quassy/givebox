@@ -18,7 +18,6 @@ IMAGE_DIR: str = "data/images"
 
 @router.post("/images")
 def post_image(image: schemas.Image, db: SessionLocal = Depends(get_db)) -> int:
-
     image_dict = image.__dict__
     box_id = image_dict["box_id"]
     data = image_dict["data"]
@@ -49,7 +48,6 @@ def post_image(image: schemas.Image, db: SessionLocal = Depends(get_db)) -> int:
         os.mkdir(IMAGE_DIR)
 
     with open(path, "wb") as binary_file:
-
         # Write bytes to file
         binary_file.write(data_as_bytes)
 

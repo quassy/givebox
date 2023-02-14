@@ -26,7 +26,6 @@ def get_givebox_image(id_: int) -> FileResponse:
 
 @router.get("/giveboxes/{id_}")
 def get_givebox_by_id(id_: int, db: Session = Depends(get_db)) -> schemas.Givebox:
-
     db_box = (
         db.query(models.GiveBox)
         .options(joinedload(models.GiveBox.maintainers))
@@ -44,7 +43,6 @@ def get_givebox_by_id(id_: int, db: Session = Depends(get_db)) -> schemas.Givebo
 
 @router.get("/giveboxes")
 def get_givebox_list(db: Session = Depends(get_db)) -> List[schemas.GiveboxBase]:
-
     boxes = db.query(models.GiveBox).all()
     boxes = [schemas.GiveboxBase(**box.__dict__) for box in boxes]
 

@@ -4,7 +4,7 @@ line-length = 120
 target_version = ["py311"]
 
 [tool.ruff]
-# line-length = 120
+line-length = 120
 extend-ignore = [
     "ANN002", "ANN003", "ANN101", "ANN102", "D103", "D100", "D101",
     "D203", "D204", "D213", "D215", "D400", "D404", "D406", "D407", "D408", "D409", "D413",

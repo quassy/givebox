@@ -10,7 +10,6 @@ router = APIRouter()
 
 @router.post("/add_maintainer/{box_id}/{user_id}")
 def add_maintainer(box_id: int, user_id: int, db: SessionLocal = Depends(get_db)) -> int:
-
     db_box: models.GiveBox = db.query(models.GiveBox).filter(models.GiveBox.id == box_id).first()
     db_user: models.User = db.query(models.User).filter(models.User.id == user_id).first()
 

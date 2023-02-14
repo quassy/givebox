@@ -14,7 +14,6 @@ router = APIRouter()
 
 @router.get("/comments/{box_id}")
 def get_comments(box_id: int, db: Session = Depends(get_db)) -> List[schemas.Comment]:
-
     comments = db.query(models.Comment).filter(models.Comment.box_id == box_id).all()
     comments = [schemas.Comment(**comment.__dict__) for comment in comments]
     return comments
@@ -22,7 +21,6 @@ def get_comments(box_id: int, db: Session = Depends(get_db)) -> List[schemas.Com
 
 @router.post("/comments")
 def post_comment(comment: schemas.Comment, db: Session = Depends(get_db)) -> int:
-
     comment_dict = comment.dict()
     user_id = comment_dict["user_id"]
     box_id = comment_dict["box_id"]

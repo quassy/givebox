@@ -15,7 +15,6 @@ router = APIRouter()
 
 @router.get("/users/{id_}")
 def get_user_by_id(id_: int, db: Session = Depends(get_db)) -> schemas.User:
-
     user = db.query(models.User).filter(models.User.id == id_).first()
 
     if user is None:
@@ -26,7 +25,6 @@ def get_user_by_id(id_: int, db: Session = Depends(get_db)) -> schemas.User:
 
 @router.get("/users")
 def get_user(db: Session = Depends(get_db)) -> List[models.User]:
-
     return db.query(models.User).all()
 
 
