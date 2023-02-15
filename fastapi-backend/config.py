@@ -5,7 +5,7 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    class Config:
+    class Config:  # noqa: D106
         env_file = "../.env"
 
     PROJECT_NAME: str = "givebox"

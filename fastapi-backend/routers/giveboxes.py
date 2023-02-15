@@ -44,9 +44,7 @@ def get_givebox_by_id(id_: int, db: Session = Depends(get_db)) -> schemas.Givebo
 @router.get("/giveboxes")
 def get_givebox_list(db: Session = Depends(get_db)) -> List[schemas.GiveboxBase]:
     boxes = db.query(models.GiveBox).all()
-    boxes = [schemas.GiveboxBase(**box.__dict__) for box in boxes]
-
-    return boxes
+    return [schemas.GiveboxBase(**box.__dict__) for box in boxes]
 
 
 @router.post("/giveboxes")

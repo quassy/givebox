@@ -35,7 +35,6 @@ class GiveboxBase(BaseModel):
     is_temporary: Optional[bool]
     title: Optional[str]
     opening_hours: Optional[str]
-    is_temporary: Optional[bool]
     extern_link: Optional[str]
     content: Optional[Content]
     street: Optional[str]
