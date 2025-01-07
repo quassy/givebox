@@ -1,11 +1,11 @@
-FROM node:18 AS build
+FROM node:19.6.0 AS build
 
 WORKDIR /app
 
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
-COPY . ./
+COPY . .
 RUN npm run build
 
 EXPOSE 3000

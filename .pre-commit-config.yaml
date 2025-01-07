@@ -1,0 +1,50 @@
+default_stages: [commit]
+repos:
+
+# Python
+- repo: https://github.com/ambv/black
+  rev: 23.1.0
+  hooks:
+  - id: black
+- repo: https://github.com/asottile/blacken-docs
+  rev: 1.13.0
+  hooks:
+  - id: blacken-docs
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: v0.0.246
+  hooks:
+  - id: ruff
+    args: [--fix]
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.0.0
+  hooks:
+  - id: mypy
+
+# Hooks for CI stuff
+- repo: local
+  hooks:
+  - id: pre-commit-autoupdate
+    name: pre-commit-autoupdate
+    entry: pre-commit autoupdate
+    language: system
+    pass_filenames: false
+    files: .pre-commit-config.yaml
+- repo: https://github.com/sirosen/check-jsonschema
+  rev: 0.21.0
+  hooks:
+  - id: check-github-actions
+  - id: check-github-workflows
+
+# Hooks for non-python files
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: pretty-format-json
+    args: [--autofix, --indent=2, --no-ensure-ascii, --no-sort-keys]
+    stages: [manual]
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.6.0
+  hooks:
+  - id: pretty-format-yaml
+    args: [--autofix, --indent, '2', --preserve-quotes]
+    stages: [manual]
